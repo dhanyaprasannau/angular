@@ -1,0 +1,12 @@
+<h1>Name: {{ user.name }}</h1>
+<table ng-show="articleList">
+		<tr>
+			<th>Article Title</th>
+			<th>Category</th>
+		</tr>
+		<tr ng-repeat="article in user.article">		
+			<td>{{article.title}}</td>	
+			<td>{{ article.category }}</td>		
+		</tr>
+		
+	</table>
