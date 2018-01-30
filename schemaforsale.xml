@@ -1,0 +1,100 @@
+<Schema name="sales" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" metamodelVersion="4.0" xsi:noNamespaceSchemaLocation="mondrian4.xsd" caption="sales-report" description="sales and profit" measuresCaption="sales" missingLink="warning">
+    <PhysicalSchema>
+        <Query alias="fact_sales" keyColumn="id">
+            <ExpressionView>
+                <SQL>select * from fact_sales</SQL>
+            </ExpressionView>
+        </Query>
+        <Table name="customers" keyColumn="id" />
+        <Table name="products" keyColumn="id" />
+        <Table name="orders" keyColumn="id" />
+    </PhysicalSchema>
+    <Dimension name="customer" table="customers" key="customer_id">
+        <Attributes>
+            <Attribute name="customer_id" keyColumn="id" hasHierarchy="false" />
+            <Attribute name="first_name" keyColumn="first_name" hasHierarchy="false" />
+            <Attribute name="last_name" keyColumn="last_name" hasHierarchy="false" />
+        </Attributes>
+        <Hierarchies>
+            <Hierarchy name="customer" allMemberName="All customers">
+               <Level attribute="customer_id"/> 
+               <Level attribute="first_name"/>
+		<Level attribute="last_name"/>
+            </Hierarchy>
+        </Hierarchies>
+    </Dimension>
+    <Dimension name="product" table="products" key="product_id">
+        <Attributes>
+            <Attribute name="product_id" keyColumn="id" hasHierarchy="false"/>
+	    <Attribute name="product_no" keyColumn="product_no" hasHierarchy="false"/>
+            <Attribute name="category" keyColumn="category" hasHierarchy="false"/>
+            <Attribute name="product_name" keyColumn="product_name" hasHierarchy="false"/>
+	    <Attribute name="description" keyColumn="description" hasHierarchy="false"/>
+        </Attributes>
+        <Hierarchies>
+            <Hierarchy name="product" allMemberName="All products"> 
+              <Level attribute="product_id"/> 
+              <Level attribute="product_name"/>
+              <Level attribute="product_no"/>
+              <Level attribute="category"/>
+            </Hierarchy>
+        </Hierarchies>
+    </Dimension>
+    <Dimension name="order" table="orders" key="order_id">
+        <Attributes>
+            <Attribute name="order_id" keyColumn="id" hasHierarchy="false"/>
+            <Attribute name="country" keyColumn="country" hasHierarchy="false"/>
+            <Attribute name="location"  hasHierarchy="false">
+		<Key>
+		<Column name="country"/>
+		<Column name="location"/>
+		</Key>
+		<Name>
+		<Column name="location"/>
+		</Name>
+	    </Attribute>
+            <Attribute name="order_no" keyColumn="order_no" hasHierarchy="false"/>
+        </Attributes>
+        <Hierarchies>
+		    <Hierarchy name="order" allMemberName="All orders">		       
+		        <Level attribute="order_no"/>
+
+		    </Hierarchy>
+		 <Hierarchy name="location">
+		 	<Level attribute="country"/>
+			<Level attribute="location"/>
+		</Hierarchy>
+        </Hierarchies>
+    </Dimension>
+
+    <Cube name="sales">
+        <Dimensions>
+            <Dimension source="customer"/>
+            <Dimension source="product"/>
+            <Dimension source="order"/>
+        </Dimensions>
+        <MeasureGroups>
+            <MeasureGroup name="sales and profit" table="fact_sales">
+                <Measures>
+                    <Measure name="sales" aggregator="sum" column="sales" formatString="#,###" datatype="Numeric"></Measure>
+                    <Measure name="profit" aggregator="sum" column="profilt" formatString="#,###" datatype="Numeric"></Measure>
+                </Measures>
+                <DimensionLinks>
+                    <ForeignKeyLink dimension="customer" foreignKeyColumn="customer_id"/>
+                    <ForeignKeyLink dimension="product" foreignKeyColumn="product_id"/>
+                    <ForeignKeyLink dimension="order" foreignKeyColumn="order_id" />
+                </DimensionLinks>
+            </MeasureGroup>
+        </MeasureGroups>
+        <CalculatedMembers>
+<CalculatedMember name="Total profit" dimension="Measures" formula="([Measures].[sales] * [Measures].[profit])" formatString="">
+<CalculatedMemberProperty name="FORMAT_STRING" value="#,##0.00"/>
+</CalculatedMember>
+</CalculatedMembers>
+    </Cube>
+    <Role name='ROLE_USER'>
+        <SchemaGrant access='all'>
+            <CubeGrant cube='sales' access='all'/>
+        </SchemaGrant>
+    </Role>
+</Schema>

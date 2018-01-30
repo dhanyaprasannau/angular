@@ -1,0 +1,19 @@
+<table>
+		<tr ng-repeat="user in users ">
+			<td>{{ user.userId }}</td>
+			<td>{{ user.name | uppercase }}</td>
+			<td>
+				<a href="#!user/{{user.userId}}">View Articles
+			</td>
+			
+			<td>
+				<button ng-click="removeUser($index,user)">X</button>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="5">
+				Name: <input ng-model="name" name="name">
+				<button ng-click="addUser()">Add</button>
+			</td>
+		</tr>
+	</table>

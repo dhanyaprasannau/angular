@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
+
+<link rel="stylesheet" href="css/main.css">
+
+<body ng-init="showBtn=true">
+ 	<a href="#!home" class="padd5">Home</a>
+	<a href="#!users" class="padd5">Users</a> 
+ 	<a href="#!articles" class="padd5">Articles</a>
+ 	<br/>
+	<div ng-view></div>
+
+<script src="controller/main.js"></script>
+</body>
+</html>

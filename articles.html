@@ -1,0 +1,21 @@
+	<table ng-show="listPage">
+		<tr ng-repeat="article in articles ">
+		<td>{{ article.articleId }}</td>
+		<td>{{ article.title | uppercase }}</td>
+		<td>{{ article.category }}</td>
+		<td>
+			<a href="#!article/{{article.articleId}}">Edit
+		</td>
+		
+		<td>
+			<button ng-click="removeArticle($index,article)">X</button>
+		</td>
+		</tr>
+		<tr>
+			<td colspan="5">
+				Title: <input ng-model="title" name="title">
+				Category: <input ng-model="category">
+				<button ng-click="addArticle()">{{save}}</button>
+			</td>
+		</tr>
+	</table>
