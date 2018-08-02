@@ -1,0 +1,181 @@
+<div class="row well">  
+    <router-outlet></router-outlet>
+    <div class="col-xs-12 text-center">
+    <h1 class="welcome-text"> Welcome, User!</h1>
+    </div>
+
+    <div class="row" *ngIf="authService.isAuthenticated();else newUser">
+
+        <div class="col-xs-6"> <div id="map"></div></div>
+        <div class="col-xs-6">
+            <!-- <div id="mapCanvas2"></div> -->
+            <div id="mapCanvas2" #mapCanvas2 style="width:100%;height:400px"></div>
+        </div>
+
+        <div class="col-xs-6 table-responsive table-wrap">  
+            <table class="table table-striped" [mfData]="categoryDetails" #category="mfDataTable" [mfRowsOnPage]="5">
+                <thead>
+                    <tr>
+                        <th style="width: 25%">
+                            <mfDefaultSorter by="postcode"> Zipcode</mfDefaultSorter>
+                        </th>
+                        <th style="width: 25%">
+                            <mfDefaultSorter by="quote_premiums_level_1_category3">Category3</mfDefaultSorter>
+                        </th>
+                        <th style="width: 25%">
+                            <mfDefaultSorter by="quote_premiums_level_1_category4">Category4</mfDefaultSorter>
+                        </th>
+                        <th style="width: 25%">
+                            <mfDefaultSorter by="quote_premiums_level_1_category5">Category5</mfDefaultSorter>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let category of category.data">
+                        <td>{{category.postcode}}</td>
+                        <td>{{category.Category3}}</td>
+                        <td >{{category.Category4}}</td>
+                        <td>{{category.Category5}}</td>
+                    </tr>
+                </tbody>
+                <tfoot>       
+                    <tr>
+                        <td colspan="4">
+                            <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+                        </td>
+                    </tr>
+                </tfoot>
+             </table>
+        </div>
+
+        <div class="col-xs-5 table-wrap table-responsive">  
+            <table class="table table-striped"  [mfData]="levelDetails" #levels="mfDataTable" [mfRowsOnPage]="5">
+                    <thead>
+                    <tr>
+                        <th style="width: 25%">
+                                <mfDefaultSorter by="postcode">Zipcode</mfDefaultSorter>
+                        </th>
+                        <th style="width: 25%">
+                                <mfDefaultSorter by="quote_premiums_level_1_category3">Level1</mfDefaultSorter>
+                        </th>
+                        <th style="width: 25%">
+                                <mfDefaultSorter by="quote_premiums_level_1_category4">Level2</mfDefaultSorter>
+                        </th>
+                        <th style="width: 25%">
+                                <mfDefaultSorter by="quote_premiums_level_1_category5">Level3</mfDefaultSorter>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let level of levels.data">
+                            <td>{{level.postcode}}</td>
+                            <td>{{level.level_1_id}}</td>
+                            <td >{{level.level_2_id}}</td>
+                            <td>{{level.level_3_id}}</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>       
+                        <tr>
+                            <td colspan="4">
+                                <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+                            </td>
+                        </tr>
+                    </tfoot>
+            </table>
+        </div>              
+            
+        <div class="col-xs-6 table-wrap table-responsive">  
+            <table class="table table-striped" [mfData]="productDetails" #products="mfDataTable">
+                <thead>
+                    <tr>
+                        <th style="width: 25%">
+                        <mfDefaultSorter by="Username">Product</mfDefaultSorter>
+                        </th>
+                        <th style="width: 25%">
+                            <mfDefaultSorter by="marks">Declined</mfDefaultSorter>
+                        </th>
+                        <th style="width: 25%">
+                            <mfDefaultSorter by="marks">Bound</mfDefaultSorter>
+                        </th>
+                        <th style="width: 25%">
+                            <mfDefaultSorter by="marks">Quote</mfDefaultSorter>
+                        </th>
+                        <th style="width: 25%">
+                            <mfDefaultSorter by="marks">Auth</mfDefaultSorter>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let product of products.data;let i =index">
+                        <td>{{i+1}}</td>
+                        <td>
+                            <span *ngIf="product.POLICY_DECLINED;else noValue">{{product.POLICY_DECLINED}}</span>
+
+                        </td>
+                        <td>
+                            <span *ngIf="product.POLICY;else noValue">{{product.POLICY}}</span>
+                        </td>
+                        <td>
+                            <span *ngIf="product.QUOTE;else noValue">{{product.QUOTE}}</span>
+                        </td>
+                        <td>
+                            <span *ngIf="product.POLICY_BOUND;else noValue">{{product.POLICY_BOUND}}</span>                   
+                        </td>
+                        <ng-template #noValue>0</ng-template>
+                    </tr>
+                </tbody>
+                <tfoot>
+                </tfoot>
+            </table>        
+        </div>
+
+        <div class="col-xs-5 table-wrap table-responsive">
+            <table class="table table-striped"  [mfData]="commissionDetails" #commission="mfDataTable" [mfRowsOnPage]="5">
+                <thead>
+                                <tr>
+                                    <th style="width: 35%">
+                                            <mfDefaultSorter by="postcode"> Fees crystal</mfDefaultSorter>
+                                    </th>
+                                    <th style="width: 30%">
+                                            <mfDefaultSorter by="quote_premiums_level_1_category3"> Commission  </mfDefaultSorter>    
+                                    </th>
+                                    <th style="width: 30%">
+                                            <mfDefaultSorter by="quote_premiums_level_1_category4"> Bound</mfDefaultSorter>
+                                    </th>
+                                </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let com of commission.data">
+                        <td>{{ com['Month-Year'] }}</td>
+                        <td>{{ com.Commission }}</td>
+                        <td>{{ com['Quote Count'] }}</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>  
+                        <td colspan="4">
+                            <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+                        </td>      
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+        <div class="mapSection" (click)="filterData()"></div>
+        <div class="locationFilter" (click)="filterByLocation()"></div>
+        <div id="zipcodes">{{zipcodeDatas}}</div>
+        <div id="level1">{{level1Zipcodes}}</div>
+        <div id="level2">{{level2Zipcodes}}</div>
+        <div id="level3">{{level3Zipcodes}}</div>
+    </div>
+            
+    <div class="col-xs-12 ">
+        <ng-template #newUser>
+            <div class="text-center">
+                <a routerLink="/register">Get Started</a>
+            </div>
+        </ng-template>
+    </div>
+
+ 
+</div>

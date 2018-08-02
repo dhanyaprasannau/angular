@@ -1,0 +1,80 @@
+<div class="row">
+    <div *ngIf="registration" class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+
+        <div *ngIf="registerFailed" class="alert alert-danger">
+            <strong>{{errorMessage}}</strong>
+        </div>
+
+      <form (ngSubmit)="onSignup(f)" #f="ngForm">
+        <div class="form-group">
+          <input type="text" id="login" name="login" class="form-control" 
+          placeholder="Username*" 
+          required
+          [(ngModel)]="login" #lControl="ngModel" >
+          <span class="help-block" *ngIf="!lControl.valid && lControl.touched">Username is required.</span>
+        </div> 
+        <div class="form-group">
+            <input type="email" id="email" name="email" 
+            ngModel 
+            class="form-control" 
+            placeholder="Email*" required  email
+            #email="ngModel">
+            
+        <span class="help-block" *ngIf="!email.valid && email.touched">Please enter a valid email!</span>
+        </div>
+        <div class="form-group">
+          <input
+            type="password"
+            id="password"
+            name="password"
+            class="form-control" placeholder="New Password" minlength="8" 
+            [(ngModel)]="password" #pControl="ngModel" 
+            required>
+            <span class="help-block" *ngIf="!pControl.valid && pControl.touched">Password is required to be at least 8 characters.</span>
+        </div>
+        <div class="form-group">
+          <input
+            type="password"
+            id="confirmPassword"
+            name="confirmPassword"
+            ngModel
+            class="form-control" placeholder="Confirm Password" required passwordMatch>
+            <span class="help-block" *ngIf="!passwordMatch">Password Mismatch.</span>
+       
+        </div>
+        <div class="form-group">
+            <input type="text" id="firstName" name="firstName" 
+            [(ngModel)]="firstName" #fControl="ngModel" 
+            ngModel class="form-control" placeholder="First Name*" minlength="3" required>
+            <span class="help-block" *ngIf="!fControl.valid && fControl.touched">First Name is required to be at least 3 characters.</span>
+        </div>
+        <div class="form-group">
+            <input type="text" id="lastName" name="lastName" ngModel class="form-control" 
+            placeholder="Last Name*"  [(ngModel)]="lastName" #lastNameControl="ngModel" required>
+            <span class="help-block" *ngIf="!lastNameControl.valid && lastNameControl.touched">Last name is required.</span>
+        </div>
+        <div class="form-group">
+            <input type="text" id="phoneNumber" name="phoneNumber"  
+            class="form-control" placeholder="Phone Number*" maxlength="10" minlength="10"
+             [(ngModel)]="phoneNumber" #pNControl="ngModel" required>
+            <span class="help-block" *ngIf="!pNControl.valid && pNControl.touched">Phone number required to be 10 digits.</span>
+        </div>
+        <div class="form-group">
+            <select [(ngModel)]="selectedValue" name="roleName"   
+            class="form-control" required>
+                <option value="" selected>Select role*</option>  
+                <option *ngFor="let role of roles" 
+                [value]="role" >
+              {{role}}
+          </option>
+              </select>
+        </div>
+        <button class="btn btn-primary" type="submit" [disabled]="!f.valid">Register</button>
+      </form>
+    </div>
+    <div *ngIf="registrationSuccess" class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+            <div class="alert alert-success">
+                    <strong>Successfully Registered. Please check your mail to activate login</strong>.
+            </div>
+    </div>
+  </div>  

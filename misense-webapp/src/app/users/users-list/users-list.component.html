@@ -1,0 +1,31 @@
+      
+      <button class="btn btn-primary" (click)="onCreateUser()">Create a new User</button>
+      <div class="row">
+        <table class="table">
+          <thead>
+              <tr>
+                  <th>ID</th>
+                  <th>Login</th>
+                  <th>First Name</th>
+                  <th>Email</th>
+                  <th>Status</th>
+                  <th>Profiles</th>
+                  <th>Created Date</th>
+                  <th></th>
+              </tr>
+          </thead>
+          <tr *ngFor="let user of users">
+            <td>{{user.id}}</td>
+            <td>{{user.login}}</td>
+            <td>{{user.firstName}}</td>
+            <td>{{user.email}}</td>
+            <td>{{user.activated}}</td>
+            <td>{{user.authorities}}</td>
+            <td>{{user.createdDate}}</td>
+            <td>
+              <button class="btn btn-primary" (click)="onEditUser(user)">View / Edit</button>
+              <button class="btn btn-primary" (click)="onDeleteUser(user)">Delete</button>
+            </td>
+          </tr>
+        </table>
+      </div>

@@ -1,0 +1,38 @@
+  <div class="col-md-12 miBackground">
+      <div class="col-md-9">
+        <a routerLink="/" class="logo"><img class="logo-img" src="assets/images/tonkabi.png"></a>
+      </div>
+      <div class="col-md-3">
+          <ul class="nav navbar-nav">
+            <ng-template [ngIf]="!authService.isAuthenticated()">
+              <li routerLinkActive="active"><a routerLink="signin" class="white">SignIn</a></li>
+              <li routerLinkActive="active"><a routerLink="register" class="white">SignUp</a></li>
+            </ng-template>
+            <ng-template [ngIf]="authService.isAuthenticated()">
+                <li ><a routerLink="home" class="white">Dashboard</a></li>
+                <li ><a routerLink="analytics" class="white">Analytics</a></li>
+                <li>
+                  <ul class="nav navbar-nav navbar-right">
+                      <li class="dropdown" appDropDown>
+                        <a  class="dropdown-toggle white" role="button">Account <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a routerLink="profile">My Profile</a></li>
+                            <li><a routerLink="changepassword">Change Password</a></li>
+                          <li *ngIf="authService.isAdmin()"><a routerLink="users">User Management</a></li>
+                          <li><a (click)="onLogout()">Logout</a></li>
+                        </ul>
+                      </li>
+                    </ul>
+                </li>
+            </ng-template>
+            </ul>
+      </div>
+  </div>
+
+  <ngx-spinner
+  bdColor = "rgba(51,51,51,0.5)"
+  size = "large"
+  color = "rgb(0,26,255)"
+  type = "cog"
+  ></ngx-spinner>
+

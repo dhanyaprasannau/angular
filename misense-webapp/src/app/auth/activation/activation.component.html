@@ -1,0 +1,12 @@
+<div class="row">
+  <div class="col-md-8">
+      <h1>Activation</h1>     
+
+      <div *ngIf="activationSuccess" class="alert alert-success">
+          <strong>Your user has been activated.</strong> Please <a routerLink="/signin">sign in</a>.
+      
+      <div  *ngIf="activationFailed" class="alert alert-danger">
+          <strong>Your user could not be activated.</strong> Please use the registration form to sign up.
+      </div>
+  </div>
+</div>

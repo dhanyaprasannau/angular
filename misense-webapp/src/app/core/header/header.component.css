@@ -1,0 +1,17 @@
+.logo .logo-img{
+    height: 45px;
+}
+
+.white{
+    color: #fff;
+}
+
+a.white:focus,  a.white:hover {
+    text-decoration: none;
+    background-color: #fff;
+    color:#337ab7;
+}
+
+.miBackground{
+    background: url('/assets/images/banner.jpg') repeat-x;
+}
